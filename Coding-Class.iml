@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/Lesson 1/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Lesson 2/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Lesson 3/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Lesson 4/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Lesson 5/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Lesson 7/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Lesson 5/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/UndeadEngine/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/UndeadEngine/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/Lesson 6/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Lesson 8/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Lesson 9/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Lesson 10/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/workspace/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/workspace/src" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
