@@ -1,6 +1,7 @@
 package me.danielle.nilsson.week8;
 
 import me.danielle.nilsson.undeadengine.*;
+import java.awt.*;
 
 public class MesasagerGame implements Game {
 
@@ -38,15 +39,23 @@ public class MesasagerGame implements Game {
 		}
 
 		for(int i = 0; i <messages.length ; i++){
-			graphics.drawText(messages[i], 20, 890 - (i*10) );
+			if(messages[i]!=null) {
+				if (messages[i].equals("GREEN")) {
+					graphics.drawColoredText(messages[i], 20, 890 - (i * 10), new Color(0, 200, 0));
+				} else {
+					graphics.drawColoredText(messages[i], 20, 890 - (i * 10), new Color(200, 200, 200));
+				}
+			}
 		}
 	}
 
 	@Override
 	public void keyPressed(Key key) {
 		if (key == Key.BACKSPACE) {
-			if(typingMessage.length()>0)
-			typingMessage.delete(typingMessage.length() - 1, typingMessage.length());
+			if(typingMessage.length()>0) {
+				typingMessage.delete(typingMessage.length() - 1, typingMessage.length());
+				AudioPlayer.playSound(Sound.BEEP_DENY);
+			}
 
 
 		} else if (key == Key.ENTER) {
@@ -57,10 +66,14 @@ public class MesasagerGame implements Game {
 			messages[0] = typingMessage.toString();
 			typingMessage = new StringBuilder();
 
+			AudioPlayer.playSound(Sound.BEEP_SELECT);
 
 		} else {
-			if (key.isCharacter())
+			if (key.isCharacter()) {
 				typingMessage.append(key.getCharacter());
+				AudioPlayer.playSound(Sound.BEEP_MOVE);
+
+			}
 		}
 	}
 
@@ -76,6 +89,11 @@ public class MesasagerGame implements Game {
 
 	@Override
 	public void mouseMove(Location location) {
+
+	}
+
+	@Override
+	public void mouseRelease(Location location, MouseClickType typeFrom) {
 
 	}
 }

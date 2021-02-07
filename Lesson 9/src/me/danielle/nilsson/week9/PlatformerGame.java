@@ -11,7 +11,10 @@ public class PlatformerGame implements Game {
 	private double player_velocity_x = 0;
 	private double player_velocity_y = 0;
 
-	private int player_size = 64;
+	private int tilesize = 32;
+	private int move_speed = 10;
+	private int player_height = 64;
+	private int player_width = tilesize;
 
 	private double gravity = 0.4;
 
@@ -20,8 +23,6 @@ public class PlatformerGame implements Game {
 	private boolean right=false;
 	private boolean jumping=false;
 
-	int tilesize = 32;
-	int move_speed = 10;
 
 	public PlatformerGame(){
 
@@ -37,7 +38,13 @@ public class PlatformerGame implements Game {
 			tiles[x][0].setType(TileType.STONE);
 			tiles[x][1].setType(TileType.DIRT);
 			tiles[x][2].setType(TileType.GRASS);
+
+			if(x % 6 == 5){
+				tiles[x][3].setType(TileType.GRASS);
+			}
 		}
+
+		AudioPlayer.playLoop(Sound.MUSIC_DATE);
 
 	}
 
@@ -50,6 +57,11 @@ public class PlatformerGame implements Game {
 
 	@Override
 	public void tick() {
+		Tile playerTile = getTileAt((int)player_x,(int)player_y);
+		//Remember, 0 for the Y is the top left corner, so you have to add to get what is below the player
+		Tile belowPlayer = getTileAt((int)player_x,(int)(player_y+ player_height));
+		Tile belowPlayer_OtherCorner = getTileAt((int)player_x+player_width,(int)(player_y+ player_height));
+
 		if(left){
 			if(player_x-move_speed > 0) {
 				player_velocity_x = -move_speed;
@@ -57,7 +69,7 @@ public class PlatformerGame implements Game {
 				player_velocity_x=0;
 			}
 		}else if(right){
-			if(player_x+move_speed<1000){
+			if(player_x+move_speed<1000-player_width){
 				player_velocity_x = move_speed;
 			}else{
 				player_velocity_x=0;
@@ -65,14 +77,11 @@ public class PlatformerGame implements Game {
 		}else{
 			player_velocity_x = 0;
 		}
-		Tile playerTile = getTileAt((int)player_x,(int)player_y);
-		//Remember, 0 for the Y is the top left corner, so you have to add to get what is below the player
-		Tile belowPlayer = getTileAt((int)player_x,(int)(player_y+player_size));
 
 		//If the player is standing on top of a solid block
-		if(belowPlayer.getType().isSolid()){
+		if(belowPlayer.getType().isSolid() || belowPlayer_OtherCorner.getType().isSolid()){
 			if(jumping) {
-				player_velocity_y=15;
+				player_velocity_y=10;
 			}else{
 				player_velocity_y = 0;
 			}
@@ -102,7 +111,7 @@ public class PlatformerGame implements Game {
 				}
 			}
 		}
-		graphics.drawImage(Sprite.SNOWMAN.getImage(),(int)player_x,(int)player_y,player_size,player_size);
+		graphics.drawImage(Sprite.ZOMBIE_SIDE.getImage(),(int)player_x,(int)player_y,player_width, player_height);
 	}
 
 	@Override
@@ -139,6 +148,11 @@ public class PlatformerGame implements Game {
 
 	@Override
 	public void mouseMove(Location location) {
+
+	}
+
+	@Override
+	public void mouseRelease(Location location, MouseClickType typeFrom) {
 
 	}
 }

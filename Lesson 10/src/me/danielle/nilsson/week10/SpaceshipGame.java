@@ -6,51 +6,24 @@ import java.awt.*;
 public class SpaceshipGame implements Game {
 
 
-	private double spaceshipX=500;
-	private double spaceshipY=100;
-	private double spaceship_velocity_x=6;
-	private double spaceship_velocity_y=0;
+	private SpaceShip spaceShip = new SpaceShip(this, 500, 100);
 
-	private int blackholex = 500;
-	private int blackholey = 500;
-	private double blackhole_gravity = 50;
+	public int blackholex = 500;
+	public int blackholey = 500;
+	public double blackhole_gravity = 50;
 	private int blackholeRadius = 10;
 
-	private boolean left=false;
-	private boolean right = false;
-	private boolean up = false;
-	private boolean down = false;
+	public double thrusterSpeed = 0.1;
 
-	private double thrusterSpeed = 0.1;
 
+	public SpaceshipGame(){
+		spaceShip.setVelocity(6,0);
+		AudioPlayer.playLoop(Sound.MUSIC_EXPLORING_SPACE);
+	}
 
 	@Override
 	public void tick() {
-		double blackhole_spaceship_distance_squared =
-				(spaceshipX-blackholex)*(spaceshipX-blackholex)	+ (spaceshipY-blackholey)*(spaceshipY-blackholey);
-
-		double delta_xvelo = (blackholex-spaceshipX) * blackhole_gravity / blackhole_spaceship_distance_squared;
-		double delta_yvelo = (blackholey-spaceshipY) * blackhole_gravity / blackhole_spaceship_distance_squared;
-
-		if(up){
-			delta_yvelo-=thrusterSpeed;
-		}
-		if(down){
-			delta_yvelo+=thrusterSpeed;
-		}
-		if(left){
-			delta_xvelo-=thrusterSpeed;
-		}
-		if(right){
-			delta_xvelo+=thrusterSpeed;
-		}
-
-		spaceship_velocity_x += delta_xvelo;
-		spaceship_velocity_y += delta_yvelo;
-
-		spaceshipX+=spaceship_velocity_x;
-		spaceshipY+=spaceship_velocity_y;
-
+		spaceShip.tick();
 	}
 
 	@Override
@@ -60,23 +33,22 @@ public class SpaceshipGame implements Game {
 
 		graphics.fillRectangle(blackholex-blackholeRadius,blackholey-blackholeRadius,2*blackholeRadius,2*blackholeRadius,new Color(0,0,0));
 
-
-		graphics.drawImage(Sprite.SPACESHIP_1.getImage(),(int)spaceshipX,(int)spaceshipY);
+		spaceShip.render(graphics);
 	}
 
 	@Override
 	public void keyPressed(Key key) {
 		if(key == Key.D || key == Key.RIGHT_ARROW){
-			right = true;
+			spaceShip.right = true;
 		}
 		if(key == Key.A || key == Key.LEFT_ARROW){
-			left = true;
+			spaceShip.left = true;
 		}
 		if(key == Key.W || key == Key.UP_ARROW){
-			up = true;
+			spaceShip.up = true;
 		}
 		if(key == Key.S || key == Key.DOWN_ARROW){
-			down = true;
+			spaceShip.down = true;
 		}
 
 	}
@@ -84,16 +56,16 @@ public class SpaceshipGame implements Game {
 	@Override
 	public void keyReleased(Key key) {
 		if(key == Key.D || key == Key.RIGHT_ARROW){
-			right = false;
+			spaceShip.right = false;
 		}
 		if(key == Key.A || key == Key.LEFT_ARROW){
-			left = false;
+			spaceShip.left = false;
 		}
 		if(key == Key.W || key == Key.UP_ARROW){
-			up = false;
+			spaceShip.up = false;
 		}
 		if(key == Key.S || key == Key.DOWN_ARROW){
-			down = false;
+			spaceShip.down = false;
 		}
 	}
 
@@ -104,6 +76,11 @@ public class SpaceshipGame implements Game {
 
 	@Override
 	public void mouseMove(Location location) {
+
+	}
+
+	@Override
+	public void mouseRelease(Location location, MouseClickType typeFrom) {
 
 	}
 }

@@ -97,4 +97,9 @@ public class PongGame implements Game {
 	public void mouseMove(Location location) {
 
 	}
+
+	@Override
+	public void mouseRelease(Location location, MouseClickType typeFrom) {
+
+	}
 }

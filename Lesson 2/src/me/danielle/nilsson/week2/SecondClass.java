@@ -93,7 +93,7 @@ public class SecondClass {
 		boolean isCool = true;
 
 		//This will check if isCool is equal to true
-		if(isCool == true){
+		if(isCool == true || isCool){
 			//This code will only print out if the isCool variable is set to true
 			//If you change isCool to false, this will not print to the console
 			System.out.println("The author of this code is cool.");

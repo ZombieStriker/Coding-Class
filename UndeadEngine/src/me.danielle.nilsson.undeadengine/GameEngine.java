@@ -1,8 +1,5 @@
 package me.danielle.nilsson.undeadengine;
 
-import me.danielle.nilsson.undeadengine.Game;
-import me.danielle.nilsson.undeadengine.GraphicsWrapper;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -23,16 +20,17 @@ public class GameEngine extends JFrame implements Runnable, KeyListener, MouseLi
 	}
 
 
-
-	public void init(){
+	public void init(int width, int height){
 		thread = new Thread(this);
+
+		this.WIDTH = width;
+		this.HEIGHT = height;
 
 		addKeyListener(this);
 		addMouseListener(this);
 		addMouseMotionListener(this);
 
-		setTitle("UndeadEngine v0.1");
-		this.setSize(new Dimension(WIDTH, HEIGHT));
+		setTitle("UndeadEngine v0.3");
 		setSize(new Dimension(WIDTH, HEIGHT));
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
@@ -41,6 +39,10 @@ public class GameEngine extends JFrame implements Runnable, KeyListener, MouseLi
 		setVisible(true);
 		setResizable(true);
 		pack();
+	}
+
+	public void init(){
+		init(WIDTH,HEIGHT);
 	}
 
 	public void start(){
@@ -52,7 +54,9 @@ public class GameEngine extends JFrame implements Runnable, KeyListener, MouseLi
 	public void run() {
 
 		while(running) {
+			long time = System.currentTimeMillis();
 			game.tick();
+			DelayedTask.tickDelayedTasks();
 			BufferedImage bi = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 			game.render(new GraphicsWrapper((Graphics2D) bi.getGraphics()));
 
@@ -60,7 +64,8 @@ public class GameEngine extends JFrame implements Runnable, KeyListener, MouseLi
 			if (thisGraph != null)
 				thisGraph.drawImage(bi, 0, 0, WIDTH, HEIGHT, null);
 			try {
-				thread.sleep(50);
+				if(System.currentTimeMillis()-time < 50)
+					thread.sleep(50 - (System.currentTimeMillis()-time));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -87,16 +92,17 @@ public class GameEngine extends JFrame implements Runnable, KeyListener, MouseLi
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		game.mouseClick(new Location(e.getX(),e.getY()), MouseClickType.getTypeFrom(e));
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		game.mouseClick(new Location(e.getX(),e.getY()), MouseClickType.getTypeFrom(e));
 
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		game.mouseRelease(new Location(e.getX(),e.getY()), MouseClickType.getTypeFrom(e));
 
 	}
 

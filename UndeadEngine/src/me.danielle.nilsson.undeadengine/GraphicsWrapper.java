@@ -46,11 +46,58 @@ public class GraphicsWrapper {
 		BufferedImage bufferedImage = op.filter(bi, null);
 		drawImage(bufferedImage,x,y,xSize,ySize);
 	}
+	public static GraphicsConfiguration getDefaultConfiguration() {
+		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		GraphicsDevice gd = ge.getDefaultScreenDevice();
+		return gd.getDefaultConfiguration();
+	}
+	public static BufferedImage getYFlippedImage(BufferedImage image)
+	{
+		AffineTransform at = new AffineTransform();
+		at.concatenate(AffineTransform.getScaleInstance(-1, 1));
+		at.concatenate(AffineTransform.getTranslateInstance(-image.getWidth(),0));
+		return createTransformed(image, at);
+	}
 
+	public static BufferedImage getXFlippedImage(BufferedImage image)
+	{
+		AffineTransform at = new AffineTransform();
+		at.concatenate(AffineTransform.getScaleInstance(1, -1));
+		at.concatenate(AffineTransform.getTranslateInstance(0, -image.getHeight()));
+		return createTransformed(image, at);
+	}
+	private static BufferedImage createTransformed(
+			BufferedImage image, AffineTransform at)
+	{
+		BufferedImage newImage = new BufferedImage(
+				image.getWidth(), image.getHeight(),
+				BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g = newImage.createGraphics();
+		g.transform(at);
+		g.drawImage(image, 0, 0, null);
+		g.dispose();
+		return newImage;
+	}
+	public static BufferedImage getRotatedImage(BufferedImage image, double degrees) {
+		int w = image.getWidth(), h = image.getHeight();
+		GraphicsConfiguration gc = getDefaultConfiguration();
+		BufferedImage result = gc.createCompatibleImage(w, h);
+		Graphics2D g = result.createGraphics();
+		g.rotate(Math.toRadians(degrees), w / 2, h / 2);
+		g.drawRenderedImage(image, null);
+		g.dispose();
+		return result;
+	}
 
 	public void drawText(String text, int x, int y){
 		if(text!=null)
 		graphics.drawString(text,x,y);
+	}
+	public void drawColoredText(String text, int x, int y, Color color){
+		Color c = graphics.getColor();
+		graphics.setColor(color);
+		drawText(text,x,y);
+		graphics.setColor(c);
 	}
 
 	public void setFont(Font font){

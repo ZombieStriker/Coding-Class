@@ -12,6 +12,10 @@ public class TestGame implements Game {
 	private int snowmanY = 500;
 	private int speed = 10;
 
+	public TestGame(){
+		AudioPlayer.playLoop(Sound.MUSIC_CORE);
+	}
+
 	@Override
 	public void tick() {
 		if (up) {
@@ -77,6 +81,11 @@ public class TestGame implements Game {
 
 	@Override
 	public void mouseMove(Location location) {
+
+	}
+
+	@Override
+	public void mouseRelease(Location location, MouseClickType typeFrom) {
 
 	}
 }

@@ -10,4 +10,5 @@ public interface Game {
 	void keyReleased(Key key);
 	void mouseClick(Location location, MouseClickType button);
 	void mouseMove(Location location);
+	void mouseRelease(Location location, MouseClickType typeFrom);
 }

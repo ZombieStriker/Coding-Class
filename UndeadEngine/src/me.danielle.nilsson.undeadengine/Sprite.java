@@ -14,8 +14,15 @@ public enum Sprite {
 	DIRT("/textures/dirt.png"),
 	STONE("/textures/stone.png"),
 	GRASS("/textures/grass.png"),
+	CONCRETE("/textures/concrete.png"),
 	LAVA("/textures/lava.png"),
 	SPACESHIP_1("/textures/spaceship_1.png"),
+	DOG("/textures/dog.png"),
+	CAT("/textures/cat.png"),
+	PLAYER_TOPDOWN("/textures/player_topdown.png"),
+	ZOMBIE_TOPDOWN("/textures/zombie_topdown.png"),
+	GAME_OVER("/textures/gameover.png"),
+	ZOMBIE_SIDE("/textures/zombie_side.png"),
 	;
 
 	String path;

@@ -7,7 +7,7 @@ public enum Key {
 	DOWN_ARROW(KeyEvent.VK_DOWN),
 	LEFT_ARROW(KeyEvent.VK_LEFT),
 	RIGHT_ARROW(KeyEvent.VK_RIGHT),
-	SPACE(KeyEvent.VK_SPACE),
+	SPACE(KeyEvent.VK_SPACE, ' '),
 	ENTER(KeyEvent.VK_ENTER),
 	ESCAPE(KeyEvent.VK_ESCAPE),
 	BACKSPACE(KeyEvent.VK_BACK_SPACE),
