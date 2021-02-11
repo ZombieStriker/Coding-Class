@@ -57,7 +57,7 @@ public class SecondClass {
 
 
 
-		//Multiplication is done byh using the asterisk ( * ) character
+		//Multiplication is done by using the asterisk ( * ) character
 		int square_of_5 = 5 * 5;
 
 		//Division is done through using the slash ( / ) character
@@ -72,6 +72,16 @@ public class SecondClass {
 
 		//This will now store the value "Hello-World"
 		String hello_world = hello + world;
+
+
+		//New to Java 15
+		var variable = "hello";
+
+		String blockstring = """
+				Line1
+				Line2
+				Line3
+				""";
 
 
 
@@ -118,6 +128,7 @@ public class SecondClass {
 		System.out.println("The square of 5 is equal to = "+square_of_5);
 		System.out.println("Half_of_PI is equal to = "+half_of_PI);
 		System.out.println("Hello_World is equal to = "+hello_world);
+		System.out.println("BlockString is equal to = "+blockstring);
 
 
 	}
